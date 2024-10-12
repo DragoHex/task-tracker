@@ -23,9 +23,9 @@ along with their current status`)
 func root() {
 	help := flag.Bool("help", false, "to get more info on the tool")
 
-	var description string
 	addCmd := NewAddCommand()
-	addCmd.StringVar(&description, "task", "", "task description")
+	updateCmd := NewUpdateCommand()
+	deleteCmd := NewDeleteCmd()
 
 	flag.Parse()
 
@@ -35,9 +35,21 @@ func root() {
 
 	switch os.Args[1] {
 	case "add":
-		err := addCmd.AddLogic(description)
+		err := addCmd.Execute()
 		if err != nil {
-			fmt.Println("error in adding a new task:", err)
+			fmt.Println(err)
+			return
+		}
+	case "update":
+		err := updateCmd.Execute()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	case "delete":
+		err := deleteCmd.Execute()
+		if err != nil {
+			fmt.Println(err)
 			return
 		}
 	}

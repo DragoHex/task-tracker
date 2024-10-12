@@ -8,22 +8,26 @@ import (
 
 type AddCmd struct {
 	*flag.FlagSet
+	description string
 }
 
 func NewAddCommand() *AddCmd {
-	return &AddCmd{
-		flag.NewFlagSet("add", flag.ContinueOnError),
+	cmd := &AddCmd{
+		FlagSet: flag.NewFlagSet("add", flag.ContinueOnError),
 	}
+	cmd.StringVar(&cmd.description, "task", "", "task description")
+	return cmd
 }
 
-func (a *AddCmd) AddLogic(des string) error {
-	err := a.Parse(os.Args[2:])
+func (c *AddCmd) Execute() error {
+	err := c.Parse(os.Args[2:])
 	if err != nil {
 		return fmt.Errorf("error in parsing the flags: %s", err)
 	}
 
 	task := NewTask()
-	task.Description = des
+	task.Description = c.description
+	task.Status = "todo"
 
 	TaskDataIns.Add(task)
 	err = TaskDataIns.Save()
