@@ -12,6 +12,7 @@ import (
 type Task struct {
 	Id          int       `json:"id,omitempty"`
 	Description string    `json:"description,omitempty"`
+	Status      string    `json:"status,omitempty"`
 	CreateAt    time.Time `json:"create_at,omitempty"`
 	UpdatedAt   time.Time `json:"updated_at,omitempty"`
 }
@@ -27,6 +28,7 @@ func (t *Task) Print() {
 	w := tabwriter.NewWriter(os.Stdout, 1, 1, 1, ' ', 0)
 	fmt.Fprintf(w, "id:\t%d\t\n", t.Id)
 	fmt.Fprintf(w, "description:\t%s\t\n", t.Description)
+	fmt.Fprintf(w, "status:\t%s\t\n", t.Status)
 	fmt.Fprintf(w, "id:\t%s\t\n", t.CreateAt.Format("02 Jan 06 15:04 IST"))
 	fmt.Fprintf(w, "id:\t%s\t\n", t.UpdatedAt.Format("02 Jan 06 15:04 IST"))
 	w.Flush()
