@@ -2,7 +2,7 @@ BINARY_NAME=tt
 
 .PHONY: bin
 bin:
-	go build -o ${BINARY_NAME} main.go
+	go build -o ${BINARY_NAME}
 
 .PHONY: run
 run:
