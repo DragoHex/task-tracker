@@ -27,7 +27,6 @@ func (c *AddCmd) Execute() error {
 
 	task := NewTask()
 	task.Description = c.description
-	task.Status = "todo"
 
 	TaskDataIns.Add(task)
 	err = TaskDataIns.Save()
