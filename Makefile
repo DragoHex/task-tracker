@@ -2,16 +2,16 @@ BINARY_NAME=tt
 
 .PHONY: bin
 bin:
-	go build -o ${BINARY_NAME}
+	go build -o artifacts/${BINARY_NAME} cmd/tt/main.go
 
 .PHONY: run
 run:
-	go run main.go
+	go run cmd/tt/main.go
 
 # .SILENT:
 .PHONY: clean
 clean:
 	go clean
-	@rm ${BINARY_NAME} 2> /dev/null
+	@rm -r artifacts 2> /dev/null
 
 $(V).SILENT:

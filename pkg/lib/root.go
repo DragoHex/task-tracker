@@ -1,4 +1,4 @@
-package main
+package lib
 
 import (
 	"encoding/json"
@@ -20,7 +20,7 @@ along with their current status`)
 	initData()
 }
 
-func root() {
+func Root() {
 	help := flag.Bool("help", false, "to get more info on the tool")
 
 	addCmd := NewAddCommand()
