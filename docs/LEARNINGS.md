@@ -1,6 +1,10 @@
 - [flags](https://pkg.go.dev/flag) package can be used for command line flag parsing.
 - Resource used [digitalocean](https://www.digitalocean.com/community/tutorials/how-to-use-the-flag-package-in-go)
 
+## Golang enums.
+- `iota` is used to auto number constants.
+- A custom type should be created from a standard type.
+- Methods should be defined for the custom types to get the string and index.
 
 ## Help command using standard library.
 - `flag.Usage` is a variable of type `func(){}` and can be overriden to define custom help response.

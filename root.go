@@ -26,6 +26,10 @@ func root() {
 	addCmd := NewAddCommand()
 	updateCmd := NewUpdateCommand()
 	deleteCmd := NewDeleteCmd()
+	listCmd := NewListCommand()
+	markTodoCmd := NewMarkTodoCommand()
+	markInProgressCmd := NewMarkInProgressCommand()
+	markDoneCmd := NewMarkDoneCommand()
 
 	flag.Parse()
 
@@ -48,6 +52,30 @@ func root() {
 		}
 	case "delete":
 		err := deleteCmd.Execute()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	case "list":
+		err := listCmd.Execute()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	case "mark-todo":
+		err := markTodoCmd.Execute()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	case "mark-in-progress":
+		err := markInProgressCmd.Execute()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	case "mark-done":
+		err := markDoneCmd.Execute()
 		if err != nil {
 			fmt.Println(err)
 			return

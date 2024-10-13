@@ -9,18 +9,36 @@ import (
 	"time"
 )
 
+type TaskStatus int
+
+func (e TaskStatus) String() string {
+	return [...]string{"todo", "in-progress", "done"}[e-1]
+}
+
+func (e TaskStatus) EnumIndex() int {
+	return int(e)
+}
+
+const (
+	_ TaskStatus = iota
+	ToDo
+	InProgress
+	Done
+)
+
 type Task struct {
-	Id          int       `json:"id,omitempty"`
-	Description string    `json:"description,omitempty"`
-	Status      string    `json:"status,omitempty"`
-	CreateAt    time.Time `json:"create_at,omitempty"`
-	UpdatedAt   time.Time `json:"updated_at,omitempty"`
+	Id          int        `json:"id,omitempty"`
+	Description string     `json:"description,omitempty"`
+	Status      TaskStatus `json:"status,omitempty"`
+	CreateAt    time.Time  `json:"create_at,omitempty"`
+	UpdatedAt   time.Time  `json:"updated_at,omitempty"`
 }
 
 func NewTask() *Task {
 	return &Task{
 		CreateAt:  time.Now(),
 		UpdatedAt: time.Now(),
+		Status:    ToDo,
 	}
 }
 
