@@ -1,8 +1,10 @@
 BINARY_NAME=tt
+COBRA_BINARY_NAME=cobra-tt
 
 .PHONY: bin
 bin:
 	go build -o artifacts/${BINARY_NAME} cmd/tt/main.go
+	go build -o artifacts/${COBRA_BINARY_NAME} cmd/cobra-tt/main.go
 
 .PHONY: run
 run:

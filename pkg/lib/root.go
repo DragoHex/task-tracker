@@ -5,16 +5,43 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
+
+	tasks "github.com/DragoHex/task-tracker/pkg/tasks"
 )
 
-var TaskDataIns *TaskData
+var (
+	DataFile    = filepath.Join("data", "data.json")
+	TaskDataIns *tasks.TaskData
+)
 
 func init() {
 	flag.Usage = func() {
-		fmt.Println(`task-traker (tt) is a cli tool to manage tasks
-it can be used to manage list of tasks
-along with their current status`)
-		flag.PrintDefaults()
+		fmt.Println(`A cli tool for managing tasks.
+
+Multiple tasks can be added.
+Each can be assigned a satus to it.
+Tasks can be listed and filtered as per their status.
+
+Usage:
+  task-tracker [command]
+
+Available Commands:
+  add              A command to add new tasks
+  completion       Generate the autocompletion script for the specified shell
+  delete           A command to delete existing tasks
+  help             Help about any command
+  list             A command to list existing tasks
+  mark-done        A command to mark a task as done
+  mark-in-progress A command to mark a task as In Progress
+  mark-todo        A command to mark a task as done
+  update           A command to update description for existing tasks
+
+Flags:
+  -h, --help     help for task-tracker
+  -t, --toggle   Help message for toggle
+
+Use "task-tracker [command] --help" for more information about a command.`)
 	}
 
 	initData()
@@ -84,16 +111,17 @@ func Root() {
 }
 
 func initData() {
-	TaskDataIns = NewTaskData()
+	TaskDataIns = tasks.NewTaskData(DataFile)
+	fmt.Println(os.Getwd())
 
-	file, err := os.OpenFile("data.json", os.O_CREATE|os.O_WRONLY, 0644)
+	file, err := os.OpenFile(DataFile, os.O_CREATE|os.O_WRONLY, 0o644)
 	if err != nil {
 		fmt.Println("error opening or creating file:", err)
 		return
 	}
 	file.Close()
 
-	data, err := os.ReadFile("data.json")
+	data, err := os.ReadFile(DataFile)
 	if err != nil {
 		fmt.Println("error reading from the file:", err)
 		return

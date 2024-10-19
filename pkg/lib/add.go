@@ -3,9 +3,11 @@ package lib
 import (
 	"flag"
 	"fmt"
+	tasks "github.com/DragoHex/task-tracker/pkg/tasks"
 	"os"
 )
 
+// AddCmd used to add new task to the data store
 type AddCmd struct {
 	*flag.FlagSet
 	description string
@@ -25,7 +27,7 @@ func (c *AddCmd) Execute() error {
 		return fmt.Errorf("error in parsing the flags: %s", err)
 	}
 
-	task := NewTask()
+	task := tasks.NewTask()
 	task.Description = c.description
 
 	TaskDataIns.Add(task)
