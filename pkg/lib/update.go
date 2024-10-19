@@ -18,7 +18,7 @@ func NewUpdateCommand() *UpdateCmd {
 		FlagSet: flag.NewFlagSet("update", flag.ContinueOnError),
 	}
 	cmd.IntVar(&cmd.id, "id", -1, "task id")
-	cmd.StringVar(&cmd.description, "task", "", "taskdescription")
+	cmd.StringVar(&cmd.description, "task", "", "task description")
 	return cmd
 }
 
@@ -37,9 +37,9 @@ func (c *UpdateCmd) Execute() error {
 			if err != nil {
 				return fmt.Errorf("error in updating task: %s", err)
 			}
-			break
+			return nil
 		}
 	}
 
-	return fmt.Errorf("error in updateing task: no task found with ID: %d", c.id)
+	return fmt.Errorf("error in updating task: no task found with ID: %d", c.id)
 }

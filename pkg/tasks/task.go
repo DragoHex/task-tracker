@@ -47,8 +47,8 @@ func (t *Task) Print() {
 	fmt.Fprintf(w, "id:\t%d\t\n", t.Id)
 	fmt.Fprintf(w, "description:\t%s\t\n", t.Description)
 	fmt.Fprintf(w, "status:\t%s\t\n", t.Status)
-	fmt.Fprintf(w, "id:\t%s\t\n", t.CreateAt.Format("02 Jan 06 15:04 IST"))
-	fmt.Fprintf(w, "id:\t%s\t\n", t.UpdatedAt.Format("02 Jan 06 15:04 IST"))
+	fmt.Fprintf(w, "create_at:\t%s\t\n", t.CreateAt.Format("02 Jan 06 15:04 IST"))
+	fmt.Fprintf(w, "last_updated:\t%s\t\n", t.UpdatedAt.Format("02 Jan 06 15:04 IST"))
 	w.Flush()
 }
 
@@ -56,12 +56,14 @@ type TaskData struct {
 	CurrentID int    `json:"current_id,omitempty"`
 	Count     int    `json:"count,omitempty"`
 	Tasks     []Task `json:"tasks,omitempty"`
+	dataFile  string
 }
 
-func NewTaskData() *TaskData {
+func NewTaskData(dataFile string) *TaskData {
 	return &TaskData{
 		CurrentID: 0,
 		Count:     0,
+		dataFile:  dataFile,
 	}
 }
 
@@ -77,7 +79,7 @@ func (t *TaskData) Save() error {
 	if err != nil {
 		return err
 	}
-	err = os.WriteFile("data.json", data, fs.ModePerm)
+	err = os.WriteFile(t.dataFile, data, fs.ModePerm)
 	if err != nil {
 		return err
 	}

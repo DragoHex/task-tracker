@@ -3,6 +3,7 @@ package lib
 import (
 	"flag"
 	"fmt"
+	tasks "github.com/DragoHex/task-tracker/pkg/tasks"
 	"os"
 )
 
@@ -27,7 +28,7 @@ func (c *MarkTodoCmd) Execute() error {
 
 	for i := range TaskDataIns.Tasks {
 		if TaskDataIns.Tasks[i].Id == c.id {
-			TaskDataIns.Tasks[i].Status = ToDo
+			TaskDataIns.Tasks[i].Status = tasks.ToDo
 			err = TaskDataIns.Save()
 			if err != nil {
 				return fmt.Errorf("error in updating task status: %s", err)
@@ -59,7 +60,7 @@ func (c *MarkInProgressCmd) Execute() error {
 
 	for i := range TaskDataIns.Tasks {
 		if TaskDataIns.Tasks[i].Id == c.id {
-			TaskDataIns.Tasks[i].Status = InProgress
+			TaskDataIns.Tasks[i].Status = tasks.InProgress
 			err = TaskDataIns.Save()
 			if err != nil {
 				return fmt.Errorf("error in updating task status: %s", err)
@@ -91,7 +92,7 @@ func (c *MarkDoneCmd) Execute() error {
 
 	for i := range TaskDataIns.Tasks {
 		if TaskDataIns.Tasks[i].Id == c.id {
-			TaskDataIns.Tasks[i].Status = Done
+			TaskDataIns.Tasks[i].Status = tasks.Done
 			err = TaskDataIns.Save()
 			if err != nil {
 				return fmt.Errorf("error in updating task status: %s", err)
